@@ -1,3 +1,4 @@
+import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -12,6 +13,7 @@ import { WaveIndicator } from "react-native-indicators";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./theme/index";
 import { IndicatiorsComponent } from "./src/utils/activitivityIndicators/indicatiorsComponent";
+import { IndexNavigation } from "./src/mainNavigation/IndexNavigation";
 
 export default function App() {
   const [ralewayLoaded] = useRaleway({
@@ -26,12 +28,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <View style={styles.container}>
-        <Text style={{ color: "white" }}>
-          Open up App.js to start working on your app!
-        </Text>
-        <StatusBar style="auto" />
-      </View>
+      <IndexNavigation />
     </ThemeProvider>
   );
 }
