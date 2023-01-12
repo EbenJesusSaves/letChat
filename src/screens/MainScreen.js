@@ -1,10 +1,19 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Button, SafeAreaView, Text, View } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
-export const MainScreen = () => {
+export const MainScreen = ({ navigation }) => {
   return (
-    <View>
-      <Text>MainScreen</Text>
-    </View>
+    <SafeAreaProvider>
+      <SafeAreaView>
+        <View>
+          <Text>MainScreen</Text>
+          <Button
+            title="ChatSceen"
+            onPress={() => navigation.navigate("ChatScreen")}
+          />
+        </View>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 };

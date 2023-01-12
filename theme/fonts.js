@@ -1,6 +1,6 @@
 export const fonts = {
   body: "Raleway_400Regular",
-  heading: "Raleway_700Bold",
+  heading: "Raleway_600SemiBold",
   monospace: "alata_400Regular",
 };
 
