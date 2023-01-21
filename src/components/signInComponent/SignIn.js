@@ -1,4 +1,4 @@
-import React, { useCallback, useReducer } from "react";
+import React, { useCallback, useEffect, useReducer, useState } from "react";
 
 import { Feather } from "@expo/vector-icons";
 
@@ -7,20 +7,63 @@ import { Input } from "../../../utils/custom/Input";
 
 import { formActions } from "../../../utils/actions/formActions";
 import { formReducer } from "../../../utils/reducers/formReducer";
-import { result } from "validate.js";
+import { async, result } from "validate.js";
+import { signIn } from "../../../utils/actions/authAction";
+import { ActivityIndicator, Alert } from "react-native";
+import { colors } from "../../../theme/colors";
+import { useDispatch } from "react-redux";
 
 const initialState = {
+  inputValues: {
+    email: "",
+    password: "",
+  },
   inputValidities: { email: false, password: false },
   formIsValid: false,
 };
 
 export const SignInComponent = () => {
   const [formState, dispatchFormState] = useReducer(formReducer, initialState);
+  const [error, setError] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
 
-  const inputChangedHandler = useCallback((inputId, inputValue) => {
-    const result = formActions(inputId, inputValue);
-    dispatchFormState({ validationResult: result, inputId });
-  });
+  useEffect(() => {
+    if (error) {
+      Alert.alert("An Error Occurred", error);
+    }
+  }, [error]);
+
+  const inputChangedHandler = useCallback(
+    (inputId, inputValue) => {
+      const result = formActions(inputId, inputValue);
+      dispatchFormState({ validationResult: result, inputId, inputValue });
+    },
+    [dispatchFormState]
+  );
+
+  const authHandler = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const action = signIn(
+        // formState.inputValues.firstName,
+        // formState.inputValues.lastName,
+        formState.inputValues.email,
+        formState.inputValues.password
+      );
+      await dispatch(action);
+      setError(null);
+    } catch (error) {
+      setError(error.message);
+      setIsLoading(false);
+    }
+  }, [dispatch, formState]);
+
+  useEffect(() => {
+    if (error) {
+      Alert.alert("Och, Something Went Wrong", error);
+    }
+  }, [error]);
 
   return (
     <>
@@ -45,11 +88,16 @@ export const SignInComponent = () => {
         onInputChanged={inputChangedHandler}
         errorText={formState.inputValidities["password"]}
       />
-      <SubmitButton
-        text="SignIn"
-        style={{ margin: 10 }}
-        disabled={!formState.formIsValid}
-      />
+      {isLoading ? (
+        <ActivityIndicator size={"small"} color={colors.ui.selected} />
+      ) : (
+        <SubmitButton
+          text="SignIn"
+          onPress={authHandler}
+          style={{ margin: 10 }}
+          disabled={!formState.formIsValid}
+        />
+      )}
     </>
   );
 };

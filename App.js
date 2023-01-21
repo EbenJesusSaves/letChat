@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { LogBox, StyleSheet, Text, View } from "react-native";
 
 import {
   useFonts as useRaleway,
@@ -14,8 +14,15 @@ import { ThemeProvider } from "styled-components";
 import { theme } from "./theme/index";
 import { IndicatiorsComponent } from "./src/utils/activitivityIndicators/indicatiorsComponent";
 import { IndexNavigation } from "./src/mainNavigation/IndexNavigation";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function App() {
+  AsyncStorage.clear();
+
+  LogBox.ignoreLogs([]);
+
   const [ralewayLoaded] = useRaleway({
     Raleway_200ExtraLight,
     Raleway_400Regular,
@@ -27,9 +34,11 @@ export default function App() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <IndexNavigation />
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <IndexNavigation />
+      </ThemeProvider>
+    </Provider>
   );
 }
 
