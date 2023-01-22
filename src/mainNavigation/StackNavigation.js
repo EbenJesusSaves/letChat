@@ -10,6 +10,10 @@ export const StackNavigation = () => {
   return (
     <Stack.Navigator
       screenOptions={{
+        headerShadowVisible: false,
+        headerTitle: "",
+        headerStyle: { backgroundColor: "#1c1d1f" },
+
         cardStyle: { backgroundColor: "#1c1d1f" },
       }}
     >

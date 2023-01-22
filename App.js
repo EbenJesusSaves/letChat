@@ -27,6 +27,7 @@ export default function App() {
     Raleway_200ExtraLight,
     Raleway_400Regular,
     Raleway_600SemiBold,
+    Raleway_700Bold,
   });
 
   if (!ralewayLoaded) {
