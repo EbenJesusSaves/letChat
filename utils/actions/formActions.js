@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  ValidateLength,
   Validation,
   ValidationEmail,
   ValidationPassword,
@@ -12,5 +13,7 @@ export const formActions = (inputId, inputValue) => {
     return ValidationEmail(inputId, inputValue);
   } else if (inputId === "password") {
     return ValidationPassword(inputId, inputValue);
+  } else if (inputId === "about") {
+    return ValidateLength(inputId, inputValue, 0, 200, true);
   }
 };

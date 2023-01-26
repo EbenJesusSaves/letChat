@@ -20,6 +20,34 @@ export const Validation = (inputId, inputValue) => {
   return validationResults && validationResults[inputId];
 };
 
+export const ValidateLength = (
+  inputId,
+  inputValue,
+  minLength,
+  maxLength,
+  allowEmpty
+) => {
+  const constraints = {
+    presence: { allowEmpty },
+  };
+
+  if (!allowEmpty || inputValue !== "") {
+    constraints.length = {};
+    if (minLength != null) {
+      constraints.length.minimum = minLength;
+    }
+    if (maxLength != null) {
+      constraints.length.maximum = maxLength;
+    }
+  }
+
+  const validationResults = validate(
+    { [inputId]: inputValue },
+    { [inputId]: constraints }
+  );
+  return validationResults && validationResults[inputId];
+};
+
 export const ValidationEmail = (inputId, inputValue) => {
   const constraints = {
     presence: { allowEmpty: false },

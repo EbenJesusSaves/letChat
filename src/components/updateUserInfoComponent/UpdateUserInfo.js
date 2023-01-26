@@ -7,13 +7,14 @@ import { signUp } from "../../../utils/actions/authAction";
 import { formReducer } from "../../../utils/reducers/formReducer";
 import { SubmitButton } from "../../../utils/custom/SubmitButton";
 import { ParentView } from "../../screens/SettingsScreen";
+import { formActions } from "../../../utils/actions/formActions";
 
 const initialState = {
   inputValues: {
     firstName: "",
     lastName: "",
     email: "",
-    password: "",
+    about: "",
   },
 
   inputValidities: {
@@ -94,17 +95,14 @@ export const UpdateUserInfo = () => {
         errorText={formState.inputValidities["email"]}
       />
       <Input
-        id="password"
-        label="Password"
-        iconPack={Feather}
-        autoCapitalize="none"
-        secureTextEntry
-        icon="lock"
+        id="about"
+        label="About"
+        iconPack={FontAwesome}
+        icon="user-o"
         iconColor="white"
         onInputChanged={inputChangedHandler}
-        errorText={formState.inputValidities["password"]}
+        errorText={formState.inputValidities["about"]}
       />
-
       {isLoading ? (
         <ActivityIndicator size={"small"} color={colors.ui.selected} />
       ) : (
