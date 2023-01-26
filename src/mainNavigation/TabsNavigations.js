@@ -7,6 +7,7 @@ import { SettingsScreen } from "../screens/SettingsScreen";
 import { StackNavigation } from "./StackNavigation";
 import { Text } from "react-native";
 import { MainScreen } from "../screens/MainScreen";
+import { SettingNavigation } from "./SettingNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -49,7 +50,7 @@ export const TabsNavigations = () => {
       />
       <Tab.Screen
         name="Settings"
-        component={SettingsScreen}
+        component={SettingNavigation}
         options={{ tabBarLabel: "Settings" }}
       />
     </Tab.Navigator>
