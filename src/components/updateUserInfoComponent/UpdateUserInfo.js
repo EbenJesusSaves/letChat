@@ -1,33 +1,38 @@
 import React, { useCallback, useEffect, useReducer, useState } from "react";
-import { Alert, Text, View } from "react-native";
+import { ActivityIndicator, Alert, Text, View } from "react-native";
 import { Input } from "../../../utils/custom/Input";
 import { FontAwesome, Feather } from "@expo/vector-icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "../../../utils/actions/authAction";
 import { formReducer } from "../../../utils/reducers/formReducer";
 import { SubmitButton } from "../../../utils/custom/SubmitButton";
 import { ParentView } from "../../screens/SettingsScreen";
 import { formActions } from "../../../utils/actions/formActions";
-
-const initialState = {
-  inputValues: {
-    firstName: "",
-    lastName: "",
-    email: "",
-    about: "",
-  },
-
-  inputValidities: {
-    firstName: false,
-    lastName: false,
-    email: false,
-    password: false,
-  },
-  formIsValid: false,
-};
+import { colors } from "../../../theme/colors";
 
 export const UpdateUserInfo = () => {
   const dispatch = useDispatch();
+
+  const userData = useSelector((state) => state.auth.userData);
+
+  const initialState = {
+    inputValues: {
+      firstName: userData.firstName || "",
+      lastName: userData.lastName || "",
+      email: userData.email || "",
+      about: userData.about || "",
+    },
+
+    inputValidities: {
+      firstName: undefined,
+      lastName: undefined,
+      email: undefined,
+      about: undefined,
+    },
+    formIsValid: false,
+  };
+
+  console.log(userData, "from here");
 
   const [formState, dispatchFormState] = useReducer(formReducer, initialState);
   const [error, setError] = useState();
@@ -63,6 +68,8 @@ export const UpdateUserInfo = () => {
     }
   }, [dispatch, formState]);
 
+  const saveHandler = () => {};
+
   return (
     <ParentView>
       <Input
@@ -73,6 +80,7 @@ export const UpdateUserInfo = () => {
         iconColor="white"
         onInputChanged={inputChangedHandler}
         errorText={formState.inputValidities["firstName"]}
+        initialValue={userData.firstName}
       />
       <Input
         id="lastName"
@@ -82,6 +90,7 @@ export const UpdateUserInfo = () => {
         iconColor="white"
         onInputChanged={inputChangedHandler}
         errorText={formState.inputValidities["lastName"]}
+        initialValue={userData.lastName}
       />
       <Input
         id="email"
@@ -93,6 +102,7 @@ export const UpdateUserInfo = () => {
         iconColor="white"
         onInputChanged={inputChangedHandler}
         errorText={formState.inputValidities["email"]}
+        initialValue={userData.email}
       />
       <Input
         id="about"
@@ -102,14 +112,15 @@ export const UpdateUserInfo = () => {
         iconColor="white"
         onInputChanged={inputChangedHandler}
         errorText={formState.inputValidities["about"]}
+        initialValue={userData.about}
       />
       {isLoading ? (
         <ActivityIndicator size={"small"} color={colors.ui.selected} />
       ) : (
         <SubmitButton
-          text="Sign Up"
+          text="Update Info"
           style={{ margin: 10 }}
-          onPress={authHandler}
+          onPress={saveHandler}
           disabled={!formState.formIsValid}
         />
       )}

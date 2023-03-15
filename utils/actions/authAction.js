@@ -56,7 +56,6 @@ export const signUp = (firstName, lastName, email, password) => {
 // this is the sign in screen so next time don't use it as sign uo screen
 export const signIn = (email, password) => {
   return async (dispatch) => {
-    console.log(dispatch);
     const auth = getAuth(app);
 
     try {
@@ -68,10 +67,12 @@ export const signIn = (email, password) => {
       const expiryDate = new Date(expirationTime);
       const timeNow = new Date();
       const millisecondsUntilExpiry = expiryDate - timeNow;
-      console.log(millisecondsUntilExpiry);
 
       const userData = await getUserData(uid);
+      console.log(uid);
+
       dispatch(authenticate({ token: accessToken, userData }));
+      console.log(userData, "from somewhere we dont know");
       saveDataToStorage(accessToken, uid, expiryDate);
 
       timer = setTimeout(() => {

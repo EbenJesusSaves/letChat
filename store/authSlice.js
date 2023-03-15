@@ -14,6 +14,9 @@ const authSlice = createSlice({
       // payload holds the value of the value which will update the state
 
       const { payload } = action;
+
+      console.log(payload);
+
       //this assigns the new token value to the old one
       state.token = payload.token;
       state.userData = payload.userData;
@@ -28,6 +31,7 @@ const authSlice = createSlice({
       state.token = null;
       state.userData = null;
       state.didTryAutoLogin = false;
+      console.log("log");
     },
   },
 });
