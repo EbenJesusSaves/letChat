@@ -15,15 +15,20 @@ import { app } from "../../Auth/firebase/firebaseConfig";
 //   }
 // };
 
+//so this function don't even run
 export const getUserData = async (userId) => {
   try {
+    console.log(" I dont run");
     // const app = getFirebaseApp();
+
     console.log(userId);
     const dbRef = ref(getDatabase(app));
-    const userRef = child(dbRef, `users/${userId}`);
 
-    const snapshot = await get(userRef);
-    console.log(snapshot.val() + "hi");
+    const userRef = get(child(dbRef, `users/${userId}`));
+    console.log(userRef);
+    const snapshot = await userRef;
+
+    console.log(snapshot.val() + "hi😂😂");
     return snapshot.val();
   } catch (error) {
     console.log(error);
