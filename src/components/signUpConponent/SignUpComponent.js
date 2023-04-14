@@ -23,10 +23,10 @@ const initialState = {
   },
 
   inputValidities: {
-    firstName: false,
-    lastName: false,
-    email: false,
-    password: false,
+    firstName: undefined,
+    lastName: undefined,
+    email: undefined,
+    password: undefined,
   },
   formIsValid: false,
 };
@@ -40,6 +40,7 @@ export const SignUpComponent = (props) => {
 
   const inputChangedHandler = useCallback((inputId, inputValue) => {
     const result = formActions(inputId, inputValue);
+
     dispatchFormState({ inputId, validationResult: result, inputValue });
   });
 

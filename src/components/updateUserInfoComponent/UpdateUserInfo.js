@@ -31,6 +31,7 @@ export const UpdateUserInfo = () => {
     },
     formIsValid: false,
   };
+  console.log(initialState);
 
   console.log(userData, "from here");
 
