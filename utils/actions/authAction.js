@@ -69,7 +69,7 @@ export const signIn = (email, password) => {
       const millisecondsUntilExpiry = expiryDate - timeNow;
 
       const userData = await getUserData(uid);
-      console.log(uid);
+      console.log(userData);
 
       dispatch(authenticate({ token: accessToken, userData }));
       console.log(userData, "from somewhere we dont know");
