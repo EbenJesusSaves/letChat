@@ -17,31 +17,32 @@ import { app } from "../../Auth/firebase/firebaseConfig";
 
 //so this function don't even run
 export const getUserData = async (userId) => {
-  // try {
-  // console.log(" I dont run");
-  // // const app = getFirebaseApp();
-  // console.log(userId);
-  // const dbRef = ref(getDatabase());
-  // const userRef = get(child(dbRef, `users/${userId}`));
-  // console.log(userRef);
-  // const snapshot = await userRef;
-  // console.log(snapshot.val() + "hi😂😂");
-  // return snapshot.val();
+  try {
+    console.log(" I dont run");
+    // const app = getFirebaseApp();
+    console.log(userId);
+    const dbRef = ref(getDatabase());
+    const userRef = get(child(dbRef, `users/${userId}`));
+    console.log(userRef);
+    const snapshot = await userRef;
+    console.log(snapshot.val() + "hi😂😂");
 
-  const dbRef = ref(getDatabase());
-  get(child(dbRef, `users/${userId}`))
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        console.log(snapshot.val());
-        return snapshot.val();
-      } else {
-        console.log("No data available");
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  // } catch (error) {
-  //   console.log(error);
-  // }
+    return snapshot.val();
+
+    // const dbRef = ref(getDatabase(app));
+    // get(child(dbRef, `users/${userId}`))
+    //   .then((snapshot) => {
+    //     if (snapshot.exists()) {
+    //       console.log(snapshot.val());
+    //       return snapshot.val();
+    //     } else {
+    //       console.log("No data available");
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
+  } catch (error) {
+    console.log(error);
+  }
 };
