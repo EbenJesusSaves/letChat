@@ -3,7 +3,10 @@ import { ActivityIndicator, Alert, Text, View } from "react-native";
 import { Input } from "../../../utils/custom/Input";
 import { FontAwesome, Feather } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { signUp } from "../../../utils/actions/authAction";
+import {
+  signUp,
+  updateSignedInUserData,
+} from "../../../utils/actions/authAction";
 import { formReducer } from "../../../utils/reducers/formReducer";
 import { SubmitButton } from "../../../utils/custom/SubmitButton";
 import { ParentView } from "../../screens/SettingsScreen";
@@ -31,9 +34,9 @@ export const UpdateUserInfo = () => {
     },
     formIsValid: false,
   };
-  console.log(initialState);
+  // console.log(initialState);
 
-  console.log(userData, "from here");
+  // console.log(userData, "from here");
 
   const [formState, dispatchFormState] = useReducer(formReducer, initialState);
   const [error, setError] = useState();
@@ -69,7 +72,16 @@ export const UpdateUserInfo = () => {
     }
   }, [dispatch, formState]);
 
-  const saveHandler = () => {};
+  const saveHandler = () => {
+    const updatedVals = formState.inputValues;
+
+    try {
+      setIsLoading(true);
+      updateSignedInUserData(userData.userId, updatedVals);
+      setIsLoading(false);
+    } catch (error) {}
+    console.log(updatedVals);
+  };
 
   return (
     <ParentView>
