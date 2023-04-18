@@ -5,7 +5,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 
-import { child, getDatabase, ref, set } from "firebase/database";
+import { child, getDatabase, ref, set, update } from "firebase/database";
 import { useEffect } from "react";
 import { authenticate } from "../../store/authSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -125,6 +125,15 @@ export const userLogout = () => {
     clearTimeout(timer);
     dispatch(logout());
   };
+};
+
+export const updateSignedInUserData = async (userId, newData) => {
+  const firstLast = `${newData.firsName} ${newData.lastName}`;
+  newData.firstLast = firstLast;
+
+  const dbRef = ref(getDatabase());
+  const childRef = child(dbRef, `users/${userId}`);
+  await update(childRef, newData);
 };
 
 // export const signIn = async (em ail, password) => {
