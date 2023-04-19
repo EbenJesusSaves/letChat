@@ -13,6 +13,7 @@ import { ParentView } from "../../screens/SettingsScreen";
 import { formActions } from "../../../utils/actions/formActions";
 import { colors } from "../../../theme/colors";
 import { updateLoggedInUserData } from "../../../store/authSlice";
+import { async } from "validate.js";
 
 export const UpdateUserInfo = () => {
   const dispatch = useDispatch();
@@ -73,16 +74,16 @@ export const UpdateUserInfo = () => {
     }
   }, [dispatch, formState]);
 
-  const saveHandler = () => {
+  const saveHandler = useCallback(async () => {
     const updatedVals = formState.inputValues;
     try {
       setIsLoading(true);
-      updateSignedInUserData(userData.userId, updatedVals);
+      await updateSignedInUserData(userData.userId, updatedVals);
       dispatch(updateLoggedInUserData({ newData: updatedVals }));
       setIsLoading(false);
     } catch (error) {}
     console.log(updatedVals);
-  };
+  }, [formState, dispatch]);
 
   return (
     <ParentView>
