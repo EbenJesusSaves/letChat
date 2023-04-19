@@ -7,8 +7,11 @@ import { logout } from "../../store/authSlice";
 import { userLogout } from "../../utils/actions/authAction";
 import { PageTitle } from "../../utils/custom/PageTitle";
 import { UpdateUserInfo } from "../components/updateUserInfoComponent/UpdateUserInfo";
+import { useDispatch } from "react-redux";
 
 export const SettingsScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+
   return (
     <ParentView>
       <PageTitle text="Settings" />
@@ -16,7 +19,7 @@ export const SettingsScreen = ({ navigation }) => {
         title="Update User Settings "
         onPress={() => navigation.navigate("UpdateUserInfo")}
       />
-      <Button title="Log Out " onPress={() => userLogout()} />
+      <Button title="Log Out " onPress={() => dispatch(userLogout())} />
     </ParentView>
   );
 };
