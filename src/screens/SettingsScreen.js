@@ -19,6 +19,7 @@ export const SettingsScreen = ({ navigation }) => {
       <ScrollView>
         <CenteredScrollView>
           <ProfileImage size={80} />
+
           <Button
             title="Update User Settings "
             onPress={() => navigation.navigate("UpdateUserInfo")}
