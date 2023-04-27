@@ -1,16 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import defaultProfile from "../../../assets/images/userImage.jpeg";
 import styled from "styled-components";
 import { EvilIcons } from "@expo/vector-icons";
+import {
+  launchImagePicker,
+  uploadImageAsync,
+} from "../../utils/ImagePickerHelper";
 
 export const ProfileImage = (props) => {
+  const source = props.uri ? { uri: props.uri } : defaultProfile;
+
+  const [userProfile, setUserProfile] = useState(source);
+  const pickImage = async () => {
+    try {
+      const tempProfileUri = await launchImagePicker();
+      if (!tempProfileUri) return;
+
+      const uploadUri = await uploadImageAsync(tempProfileUri);
+
+      setUserProfile({ uri: uploadUri });
+    } catch (error) {}
+  };
+
   return (
     <View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={pickImage}>
         <ProfilePic
           style={{ height: props.size, width: props.size }}
-          source={defaultProfile}
+          source={userProfile}
         />
         <ChangeProfileIcon name="pencil" size={24} color="white" />
       </TouchableOpacity>
