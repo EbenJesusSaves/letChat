@@ -9,11 +9,12 @@ import {
 } from "../../../utils/actions/authAction";
 import { formReducer } from "../../../utils/reducers/formReducer";
 import { SubmitButton } from "../../../utils/custom/SubmitButton";
-import { ParentView } from "../../screens/SettingsScreen";
+import { CenteredScrollView, ParentView } from "../../screens/SettingsScreen";
 import { formActions } from "../../../utils/actions/formActions";
 import { colors } from "../../../theme/colors";
 import { updateLoggedInUserData } from "../../../store/authSlice";
 import { async } from "validate.js";
+import { ProfileImage } from "../profile/ProfileImage";
 
 export const UpdateUserInfo = () => {
   const dispatch = useDispatch();
@@ -82,11 +83,18 @@ export const UpdateUserInfo = () => {
       dispatch(updateLoggedInUserData({ newData: updatedVals }));
       setIsLoading(false);
     } catch (error) {}
-    console.log(updatedVals);
   }, [formState, dispatch]);
 
   return (
     <ParentView>
+      <CenteredScrollView>
+        <ProfileImage
+          size={100}
+          userId={userData.userId}
+          uri={userData.profilePicture}
+        />
+      </CenteredScrollView>
+
       <Input
         id="firstName"
         label="First Name"

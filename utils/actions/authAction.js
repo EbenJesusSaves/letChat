@@ -128,8 +128,10 @@ export const userLogout = () => {
 };
 
 export const updateSignedInUserData = async (userId, newData) => {
-  const firstLast = `${newData.firsName} ${newData.lastName}`;
-  newData.firstLast = firstLast;
+  if (newData.firsName && newData.lastName) {
+    const firstLast = `${newData.firsName} ${newData.lastName}`;
+    newData.firstLast = firstLast;
+  }
 
   const dbRef = ref(getDatabase());
   const childRef = child(dbRef, `users/${userId}`);

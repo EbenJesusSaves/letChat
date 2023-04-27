@@ -7,9 +7,15 @@ import {
   launchImagePicker,
   uploadImageAsync,
 } from "../../utils/ImagePickerHelper";
+import { updateSignedInUserData } from "../../../utils/actions/authAction";
+import { useDispatch } from "react-redux";
+import { updateLoggedInUserData } from "../../../store/authSlice";
 
 export const ProfileImage = (props) => {
+  const dispatch = useDispatch();
+
   const source = props.uri ? { uri: props.uri } : defaultProfile;
+  const userId = props.userId;
 
   const [userProfile, setUserProfile] = useState(source);
   const pickImage = async () => {
@@ -18,6 +24,11 @@ export const ProfileImage = (props) => {
       if (!tempProfileUri) return;
 
       const uploadUri = await uploadImageAsync(tempProfileUri);
+
+      const newData = { profilePicture: uploadUri };
+
+      await updateSignedInUserData(userId, newData);
+      dispatch(updateLoggedInUserData({ newData: newData }));
 
       setUserProfile({ uri: uploadUri });
     } catch (error) {}

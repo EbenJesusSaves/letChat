@@ -46,7 +46,6 @@ export const ChatScreen = () => {
             <TextBox
               value={messageText}
               multiline
-              
               onChangeText={(text) => SetMessageText(text)}
             />
             {!messageText.length ? (

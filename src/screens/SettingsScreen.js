@@ -18,8 +18,6 @@ export const SettingsScreen = ({ navigation }) => {
       <PageTitle text="Settings" />
       <ScrollView>
         <CenteredScrollView>
-          <ProfileImage size={80} />
-
           <Button
             title="Update User Settings "
             onPress={() => navigation.navigate("UpdateUserInfo")}
@@ -36,6 +34,6 @@ export const ParentView = styled.View`
   background-color: black;
 `;
 
-const CenteredScrollView = styled.View`
+export const CenteredScrollView = styled.View`
   align-items: center;
 `;
