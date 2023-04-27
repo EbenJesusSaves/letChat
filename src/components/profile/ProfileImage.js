@@ -1,6 +1,6 @@
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import defaultProfile from "../../../assets/images/icons8-cat-65.png";
+import defaultProfile from "../../../assets/images/userImage.jpeg";
 import styled from "styled-components";
 import { EvilIcons } from "@expo/vector-icons";
 
