@@ -18,7 +18,7 @@ export const MainScreen = ({ navigation }) => {
         <HeaderButtons HeaderButtonComponent={CustomHeaderBtn}>
           <Item
             title="search"
-            iconName="ios-search"
+            iconName="create-outline"
             onPress={() => alert("search")}
           />
         </HeaderButtons>

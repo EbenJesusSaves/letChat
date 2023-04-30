@@ -1,6 +1,7 @@
 import React from "react";
 import { HeaderButton, Item } from "react-navigation-header-buttons";
 import { Ionicons } from "@expo/vector-icons";
+import { colors } from "../../theme/colors";
 
 export const CustomHeaderBtn = (props) => {
   // the `props` here come from <Item ... />
@@ -10,7 +11,7 @@ export const CustomHeaderBtn = (props) => {
       IconComponent={Ionicons}
       iconSize={23}
       {...props}
-      color="#4f4"
+      color={colors.ui.selected}
     />
   );
 };

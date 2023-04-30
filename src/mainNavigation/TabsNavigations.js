@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
-
+import { colors } from "../../theme/colors";
 import { SettingsScreen } from "../screens/SettingsScreen";
 import { StackNavigation } from "./StackNavigation";
 import { Text } from "react-native";
@@ -37,12 +37,16 @@ export const TabsNavigations = () => {
         tabBarStyle: {
           backgroundColor: "#1c1d1f",
         },
+        headerStyle: {
+          backgroundColor: `${colors.ui.primary}`,
+        },
       })}
     >
       <Tab.Screen
         name="Home"
         component={MainScreen}
         options={{
+          title: null,
           tabBarLabel: "Chats",
           tabBarBadge: notification(),
           tabBarAllowFontScaling: true,
@@ -51,7 +55,7 @@ export const TabsNavigations = () => {
       <Tab.Screen
         name="Settings"
         component={SettingNavigation}
-        options={{ tabBarLabel: "Settings" }}
+        options={{ title: null, tabBarLabel: "Settings" }}
       />
     </Tab.Navigator>
   );
