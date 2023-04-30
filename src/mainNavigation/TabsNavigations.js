@@ -31,7 +31,7 @@ export const TabsNavigations = () => {
           // You can return any component that you like here!
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        headerShown: false,
+        headerShadowVisible: false,
         tabBarActiveTintColor: "#1651c2",
         tabBarInactiveTintColor: "gray",
         tabBarStyle: {

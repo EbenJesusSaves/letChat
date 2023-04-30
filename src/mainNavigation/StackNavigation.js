@@ -20,7 +20,7 @@ export const StackNavigation = () => {
       <Stack.Screen
         name="Main"
         component={TabsNavigations}
-        options={{ gestureEnabled: true }}
+        options={{ gestureEnabled: true, headerShown: false }}
       />
       <Stack.Screen
         name="ChatScreen"
