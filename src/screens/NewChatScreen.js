@@ -46,7 +46,7 @@ export const NewChatScreen = ({ navigation }) => {
       console.log("hi");
     }, 500);
 
-    return () => clearTimeout();
+    return () => clearTimeout(delayTime);
   }, [searchTerm]);
 
   return (
