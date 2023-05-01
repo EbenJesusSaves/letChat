@@ -19,7 +19,7 @@ export const MainScreen = ({ navigation }) => {
           <Item
             title="search"
             iconName="create-outline"
-            onPress={() => alert("search")}
+            onPress={() => navigation.navigate("NewChat")}
           />
         </HeaderButtons>
       ),
