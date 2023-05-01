@@ -17,6 +17,7 @@ export const NewChatScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState();
   const [onResult, setNoResult] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     navigation.setOptions({
@@ -30,12 +31,35 @@ export const NewChatScreen = ({ navigation }) => {
     });
   }, []);
 
+  useEffect(() => {
+    const delayTime = setTimeout(() => {
+      if (!searchTerm || searchTerm === "") {
+        setUser();
+        setNoResult(false);
+        return;
+      }
+
+      setIsLoading(true);
+      setUser({});
+      setNoResult(true);
+      setIsLoading(false);
+      console.log("hi");
+    }, 500);
+
+    return () => clearTimeout();
+  }, [searchTerm]);
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={{ flex: 1 }}>
         <NewChatView>
           <AntDesign name="search1" size={20} color={colors.ui.textBg} />
-          <SearchInput placeholder="Search" onChangeText={() => {}} />
+          <SearchInput
+            placeholder="Search"
+            onChangeText={(t) => {
+              setSearchTerm(t);
+            }}
+          />
         </NewChatView>
         {!isLoading && !user && (
           <GeneralCenter>
@@ -53,12 +77,12 @@ export const NewChatScreen = ({ navigation }) => {
             <TextClass> No user found</TextClass>
           </GeneralCenter>
         )}
-        {!isLoading && user && (
+        {/* {!isLoading && user && (
           <GeneralCenter>
             <FontAwesome5 name="users" size={55} color={colors.text.disabled} />
             <TextClass> Enter a name to search for a user</TextClass>
           </GeneralCenter>
-        )}
+        )} */}
       </SafeAreaView>
     </SafeAreaProvider>
   );
