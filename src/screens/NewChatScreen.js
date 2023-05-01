@@ -9,12 +9,18 @@ import {
 import { CustomHeaderBtn } from "../components/CustomHeaderBtn";
 import { AntDesign } from "@expo/vector-icons";
 import styled from "styled-components";
+import { useState } from "react";
+import { colors } from "../../theme/colors";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 export const NewChatScreen = ({ navigation }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [user, setUser] = useState();
+  const [onResult, setNoResult] = useState(false);
+
   useEffect(() => {
     navigation.setOptions({
-      // in your app, you can extract the arrow function into a separate component
-      // to avoid creating a new one every time you update the options
+      headerLeft: () => null,
       headerRight: () => (
         <HeaderButtons HeaderButtonComponent={CustomHeaderBtn}>
           <Item title="" iconName="close" onPress={() => navigation.goBack()} />
@@ -26,11 +32,33 @@ export const NewChatScreen = ({ navigation }) => {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView>
+      <SafeAreaView style={{ flex: 1 }}>
         <NewChatView>
-          <AntDesign name="search1" size={20} color="white" />
+          <AntDesign name="search1" size={20} color={colors.ui.textBg} />
           <SearchInput placeholder="Search" onChangeText={() => {}} />
         </NewChatView>
+        {!isLoading && !user && (
+          <GeneralCenter>
+            <FontAwesome5 name="users" size={55} color={colors.text.disabled} />
+            <TextClass> Enter a name to search for a user</TextClass>
+          </GeneralCenter>
+        )}
+        {!isLoading && onResult && (
+          <GeneralCenter>
+            <FontAwesome5
+              name="question"
+              size={55}
+              color={colors.text.disabled}
+            />
+            <TextClass> No user found</TextClass>
+          </GeneralCenter>
+        )}
+        {!isLoading && user && (
+          <GeneralCenter>
+            <FontAwesome5 name="users" size={55} color={colors.text.disabled} />
+            <TextClass> Enter a name to search for a user</TextClass>
+          </GeneralCenter>
+        )}
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -51,4 +79,15 @@ const NewChatView = styled.View`
 const SearchInput = styled.TextInput`
   margin-left: ${(p) => p.theme.space[2]};
   font-size: ${(p) => p.theme.fontSizes.body};
+  width: 100%;
+`;
+
+export const GeneralCenter = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
+const TextClass = styled.Text`
+  color: ${(p) => p.theme.colors.text.disabled};
 `;
