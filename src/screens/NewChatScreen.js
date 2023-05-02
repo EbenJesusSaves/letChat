@@ -12,6 +12,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import { colors } from "../../theme/colors";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { searchUser } from "../../utils/actions/userActions";
 
 export const NewChatScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +33,7 @@ export const NewChatScreen = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    const delayTime = setTimeout(() => {
+    const delayTime = setTimeout(async () => {
       if (!searchTerm || searchTerm === "") {
         setUser();
         setNoResult(false);
@@ -40,8 +41,8 @@ export const NewChatScreen = ({ navigation }) => {
       }
 
       setIsLoading(true);
-      setUser({});
-      setNoResult(true);
+
+      const usersResult = await searchUser(searchTerm);
       setIsLoading(false);
     }, 500);
 

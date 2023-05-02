@@ -1,4 +1,13 @@
-import { child, get, getDatabase, ref } from "firebase/database";
+import {
+  child,
+  endAt,
+  get,
+  getDatabase,
+  orderByChild,
+  query,
+  ref,
+  startAt,
+} from "firebase/database";
 
 import { app } from "../../Auth/firebase/firebaseConfig";
 
@@ -69,6 +78,19 @@ export const searchUser = async (queryText) => {
 
   try {
     const dbRef = ref(getDatabase());
-    const userRef = child(dbRef, `users/${userId}`);
+    const userRef = child(dbRef, `users`);
+
+    const queryRef = query(
+      userRef,
+      orderByChild("userName"),
+      startAt(searchTerm),
+      endAt(searchTerm + "\uf8ff")
+    );
+    const snapshot = await get(queryRef);
+
+    if (snapshot.exists) {
+      return snapshot.val();
+    }
+    return {};
   } catch (error) {}
 };
