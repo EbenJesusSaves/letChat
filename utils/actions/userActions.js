@@ -63,3 +63,12 @@ export const getUserData = async (userId) => {
 // };
 
 console.log(getUserData());
+
+export const searchUser = async (queryText) => {
+  const searchTerm = queryText.toLowerCase();
+
+  try {
+    const dbRef = ref(getDatabase());
+    const userRef = child(dbRef, `users/${userId}`);
+  } catch (error) {}
+};

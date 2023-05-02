@@ -43,7 +43,6 @@ export const NewChatScreen = ({ navigation }) => {
       setUser({});
       setNoResult(true);
       setIsLoading(false);
-      console.log("hi");
     }, 500);
 
     return () => clearTimeout(delayTime);
