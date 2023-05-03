@@ -43,6 +43,7 @@ export const NewChatScreen = ({ navigation }) => {
       setIsLoading(true);
 
       const usersResult = await searchUser(searchTerm);
+      console.log(usersResult);
       setIsLoading(false);
     }, 500);
 
