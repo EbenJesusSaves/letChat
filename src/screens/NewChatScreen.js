@@ -1,5 +1,13 @@
 import React, { useEffect } from "react";
-import { Button, SafeAreaView, Text, TextInput, View } from "react-native";
+import {
+  ActivityIndicator,
+  Button,
+  FlatList,
+  SafeAreaView,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import {
   HeaderButton,
@@ -43,7 +51,16 @@ export const NewChatScreen = ({ navigation }) => {
       setIsLoading(true);
 
       const usersResult = await searchUser(searchTerm);
-      console.log(usersResult);
+      setUser(usersResult);
+
+      // console.log(Object.keys(usersResult));
+      // if (Object.keys(usersResult).length === 0) {
+      //   setNoResult(true);
+
+      //   console.log("huiiiiiiii");
+      // } else {
+      //   setNoResult(false);
+      // }
       setIsLoading(false);
     }, 500);
 
@@ -62,6 +79,21 @@ export const NewChatScreen = ({ navigation }) => {
             }}
           />
         </NewChatView>
+        {isLoading && (
+          <GeneralCenter>
+            <ActivityIndicator size="large" color={colors.ui.selected} />
+          </GeneralCenter>
+        )}
+
+        {!isLoading && !onResult && user && (
+          <FlatList
+            data={Object.keys(user)}
+            renderItem={(itemData) => {
+              const userId = itemData.item;
+              return <Text>{userId}</Text>;
+            }}
+          />
+        )}
         {!isLoading && !user && (
           <GeneralCenter>
             <FontAwesome5 name="users" size={55} color={colors.text.disabled} />
