@@ -90,17 +90,19 @@ export const NewChatScreen = ({ navigation }) => {
             data={Object.keys(user)}
             renderItem={(itemData) => {
               const userId = itemData.item;
-              return <Text>{userId}</Text>;
+              const userData = user[userId]
+              console.log(userData.firstName)
+              return <Text>{userData.firstName}</Text>;
             }}
           />
         )}
-        {!isLoading && !user && (
+        {!isLoading && !user && !searchTerm&& (
           <GeneralCenter>
             <FontAwesome5 name="users" size={55} color={colors.text.disabled} />
             <TextClass> Enter a name to search for a user</TextClass>
           </GeneralCenter>
         )}
-        {!isLoading && onResult && (
+        {!isLoading && !onResult && searchTerm && (
           <GeneralCenter>
             <FontAwesome5
               name="question"
