@@ -21,6 +21,7 @@ import { useState } from "react";
 import { colors } from "../../theme/colors";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { searchUser } from "../../utils/actions/userActions";
+import { DataItem } from "../components/DataItem";
 
 export const NewChatScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -91,12 +92,13 @@ export const NewChatScreen = ({ navigation }) => {
             renderItem={(itemData) => {
               const userId = itemData.item;
               const userData = user[userId]
-              console.log(userData.firstName)
-              return <Text>{userData.firstName}</Text>;
+              return <DataItem title={`${userData.firstName} ${userData.lastName}`}
+                subTitle={`${userData.About}`}
+                image={userData.profilePicture} />
             }}
           />
         )}
-        {!isLoading && !user && !searchTerm&& (
+        {!isLoading && !user && !searchTerm && (
           <GeneralCenter>
             <FontAwesome5 name="users" size={55} color={colors.text.disabled} />
             <TextClass> Enter a name to search for a user</TextClass>
